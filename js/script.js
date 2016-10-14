@@ -2,8 +2,10 @@
 
 // Create and lin a JS file to index.html - *** DONE
 
-// Set focus on the first text field
-
+// Set focus on the first text field - *** DONE
+$(document).ready(function() {
+  $('#name').focus();
+});
 // Reveal text field for Job Role: Other selection
 
 // Pair T-Shirt color selectins dynamically
