@@ -12,6 +12,8 @@ $('#other-title').hide();
 $('#title').on('change', function() {
   if ($('#title option:selected').val() === 'other') {
     $('#other-title').show();
+  } else {
+    $('#other-title').hide();
   }
 });
 
@@ -61,6 +63,8 @@ $('.activities input:checkbox').on('click', checkTotal);
 
 
 // Dynamic pay info selection
+$('#credit-card').hide();
+
 
 // Display error messages for incomplete data
 
