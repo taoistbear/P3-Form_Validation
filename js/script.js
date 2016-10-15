@@ -7,8 +7,7 @@ $(document).ready(function() {
   $('#name').focus();
 });
 // Reveal text field for Job Role: Other selection
-var otherField = $('<input type="text" id="other-title" placeholder="Your Title">');
-$('fieldset:eq(0)').append(otherField);
+$('fieldset:eq(0)').append('<input type="text" id="other-title" placeholder="Your Title">');
 $('#other-title').hide();
 $('#title').on('change', function() {
   if ($('#title option:selected').val() === 'other') {
@@ -22,21 +21,27 @@ var $shirtColorDiv = $('.shirt div:eq(2)');
 var $shirtColorOptions = $('#color option');
 $shirtColorDiv.hide();
 $shirtColorOptions.hide();
-$shirtDesign.on('change', function() {
+$shirtDesign.change(function() {
   // Pair T-Shirt color selectins dynamically
   if ($('#design option:selected').val() === 'js puns') {
-    $shirtColorOptions.hide();
-    $('#color option:eq(0)').show();
+    $('#color option:eq(0)').prop('selected', 'selected').show();
     $('#color option:eq(1)').show();
     $('#color option:eq(2)').show();
-  } else {
-    $shirtColorOptions.hide();
-    $('#color option:selected').val('tomato');
-    $('#color option:eq(3)').show();
+    $('#color option:eq(3)').hide();
+    $('#color option:eq(4)').hide();
+    $('#color option:eq(5)').hide();
+    $shirtColorDiv.show();
+  } else if ($('#design option:selected').val() === 'heart js'){
+    $('#color option:eq(0)').hide();
+    $('#color option:eq(1)').hide();
+    $('#color option:eq(2)').hide();
+    $('#color option:eq(3)').prop('selected', 'selected').show();
     $('#color option:eq(4)').show();
     $('#color option:eq(5)').show();
+    $shirtColorDiv.show();
+  } else {
+    $shirtColorDiv.hide();
   }
-  $shirtColorDiv.show();
 });
 
 // Calcualte Registration total and block out conflicts
