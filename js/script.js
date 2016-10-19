@@ -51,15 +51,18 @@ $('.activities').append('<span id="total"></span>');
 $('.activities input:eq(0)').addClass('mainConf');
 
 // Calcualte Registration total and block out conflicts
-var checkTotal = function() {
+var checkActivities = function() {
   var checked = $('.activities input:checked').length * 100;
   if ($('.mainConf').prop('checked')) {
     checked += 100;
   }
   $('#total').text('Total: $' + checked);
+  if ($(this).prop('checked')) {
+    
+  }
 };
-checkTotal();
-$('.activities input:checkbox').on('click', checkTotal);
+checkActivities();
+$('.activities input:checkbox').on('click', checkActivities);
 
 
 // Dynamic pay info selection
