@@ -46,18 +46,24 @@ $shirtDesign.change(function() {
   }
 });
 
-// Append span to hold conf total.
-$('.activities').append('<span id="total"></span>');
-$('.activities input:eq(0)').addClass('mainConf');
+
 
 // Calcualte Registration total
 var checkActivities = function() {
+  // Append span to hold conf total.
+  $('.activities').append('<span id="total"></span>');
+  $('.activities input:eq(0)').addClass('mainConf');
   var checked = $('.activities input:checked').length * 100;
-  if ($('.mainConf').prop('checked')) {
-    checked += 100;
+  if (checked > 0) {
+    if ($('.mainConf').prop('checked')) {
+      checked += 100;
+    }
+    $('#total').text('Total: $' + checked);
+  } else {
+    $('#total').remove();
   }
-  $('#total').text('Total: $' + checked);
-  // conflict blocks
+
+  // toggle conflict blocks
   $('.activities label').each(function() {
     if ($(this).find('input').prop('checked')) {
       var $timeSlot = $(this).text().split('Workshop').pop();
@@ -69,17 +75,22 @@ var checkActivities = function() {
           }
         }
       });
+    } else if ($(this).find('input').prop('disabled')){
+      var $disSlot = $(this).text().split('Workshop').pop();
+      console.log($disSlot);
+      $('.activities label').each(function() {
+        if (!$(this).find('input').prop('checked')) {
+          console.log($(this).text());
+          // if ($(this).text().indexOf($disSlot) >= 0) {
+          //   $(this).removeClass('conflict');
+          //   $(this).find('input').prop('disabled', false);
+          // }
+        }
+      });
     }
   });
-  // toggle conflict blocks
-  $('input[type=checkbox]:disabled').each(function() {
-    var $disabledTime = $(this).parent().text().split('Workshop').pop();
-    
-  });
 };
-checkActivities();
 $('.activities input:checkbox').on('click', checkActivities);
-
 
 // Dynamic pay info selection
 $('#credit-card').hide();
