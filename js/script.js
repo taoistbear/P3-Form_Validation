@@ -50,16 +50,32 @@ $shirtDesign.change(function() {
 $('.activities').append('<span id="total"></span>');
 $('.activities input:eq(0)').addClass('mainConf');
 
-// Calcualte Registration total and block out conflicts
+// Calcualte Registration total
 var checkActivities = function() {
   var checked = $('.activities input:checked').length * 100;
   if ($('.mainConf').prop('checked')) {
     checked += 100;
   }
   $('#total').text('Total: $' + checked);
-  if ($(this).prop('checked')) {
+  // conflict blocks
+  $('.activities label').each(function() {
+    if ($(this).find('input').prop('checked')) {
+      var $timeSlot = $(this).text().split('Workshop').pop();
+      $('.activities label').each(function() {
+        if (!$(this).find('input').prop('checked')) {
+          if ($(this).text().indexOf($timeSlot) >= 0) {
+            $(this).addClass('conflict');
+            $(this).find('input').prop('disabled', true);
+          }
+        }
+      });
+    }
+  });
+  // toggle conflict blocks
+  $('input[type=checkbox]:disabled').each(function() {
+    var $disabledTime = $(this).parent().text().split('Workshop').pop();
     
-  }
+  });
 };
 checkActivities();
 $('.activities input:checkbox').on('click', checkActivities);
@@ -74,5 +90,9 @@ $('#credit-card').hide();
 // Clear any syntax errors
 
 // Syle selecttion menus to match page
+$('select').css({
+  'background': '#c1deeb',
+  'color': '#184f68'
+});
 
 // Add Credit Card Valition
