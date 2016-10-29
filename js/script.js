@@ -1,12 +1,23 @@
+//******************************************************************************
 // 11 STEPS FOR PROJECT COPLETION
+//******************************************************************************
 
-// Create and link a JS file to index.html - *** DONE
+//******************************************************************************
+// CREATE AND LINK A JS FILE TO INDEX.HTML - *** DONE
+//******************************************************************************
 
-// Set focus on the first text field - *** DONE
+//******************************************************************************
+// SET FOCUS TO FIRST FIELD- *** DONE
+//******************************************************************************
+
 $(document).ready(function() {
   $('#name').focus();
 });
-// Reveal text field for Job Role: Other selection
+
+//******************************************************************************
+// REVEAL/HIDE TEXT FIELD FOR JOB ROLE SELCETION - OTHER - *** DONE
+//******************************************************************************
+
 $('fieldset:eq(0)').append('<input type="text" id="other-title" placeholder="Your Title">');
 $('#other-title').hide();
 $('#title').on('change', function() {
@@ -17,7 +28,10 @@ $('#title').on('change', function() {
   }
 });
 
-//Hide/Show T-Shirt options dynamically through selection ***DONE
+//******************************************************************************
+// REVEAL/HIDE T-SHIRT SELECTION BASED ON VALUE - *** DONE
+//******************************************************************************
+
 var $shirtDesign = $('.shirt div:eq(1)');
 var $shirtColorDiv = $('.shirt div:eq(2)');
 var $shirtColorOptions = $('#color option');
@@ -46,13 +60,16 @@ $shirtDesign.change(function() {
   }
 });
 
+//******************************************************************************
+// CACLUATE REGISTRATION TOTAL WITH DYMAIC OPTIONS - *** DONE
+//******************************************************************************
 
-
-// Calcualte Registration total
+// function to cycle through each checkbox
 var checkActivities = function() {
   // Append span to hold conf total.
   $('.activities').append('<span id="total"></span>');
   $('.activities input:eq(0)').addClass('mainConf');
+  // Calculate total based on options checked
   var checked = $('.activities input:checked').length * 100;
   if (checked > 0) {
     if ($('.mainConf').prop('checked')) {
@@ -63,7 +80,13 @@ var checkActivities = function() {
     $('#total').remove();
   }
 
-  // toggle conflict blocks
+  // enable open blocks
+  $('.activities input').each(function() {
+    $(this).parent().removeClass('conflict');
+    $(this).prop('disabled', false);
+  })
+
+  // disable conflict blocks
   $('.activities label').each(function() {
     if ($(this).find('input').prop('checked')) {
       var $timeSlot = $(this).text().split('Workshop').pop();
@@ -75,26 +98,15 @@ var checkActivities = function() {
           }
         }
       });
-    } else if ($(this).find('input').prop('disabled')){
-      var $disSlot = $(this).text().split('Workshop').pop();
-      console.log($disSlot);
-      $('.activities label').each(function() {
-        if (!$(this).find('input').prop('checked')) {
-          console.log($(this).text());
-          // if ($(this).text().indexOf($disSlot) >= 0) {
-          //   $(this).removeClass('conflict');
-          //   $(this).find('input').prop('disabled', false);
-          // }
-        }
-      });
     }
   });
 };
 $('.activities input:checkbox').on('click', checkActivities);
 
 
-
-// Dynamic pay info selection
+//******************************************************************************
+// DYMANIC PAY INFO
+//******************************************************************************
 
 // set up variables to hold a quick reference and to hide dynamic options
 var $creditCard = $('#credit-card');
@@ -125,14 +137,23 @@ $('#payment').change(function() {
 });
 
 
+//******************************************************************************
 // Display error messages for incomplete data
+//******************************************************************************
 
+//******************************************************************************
 // Clear any syntax errors
+//******************************************************************************
 
-// Syle selecttion menus to match page
+//******************************************************************************
+// Syle selecttion menus to match page - *** DONE
+//******************************************************************************
+
 $('select').css({
   'background': '#c1deeb',
   'color': '#184f68'
 });
 
+//******************************************************************************
 // Add Credit Card Valition
+//******************************************************************************
