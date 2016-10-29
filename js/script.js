@@ -140,6 +140,73 @@ $('#payment').change(function() {
 //******************************************************************************
 // Display error messages for incomplete data
 //******************************************************************************
+console.log($('#name').text());
+
+// event listener for submit and validation
+$('button').click(function(event) {
+  // prevent page from submitting
+  event.preventDefault();
+  // verify name field
+  checkName();
+  // verify valid email address
+  checkEmail();
+  // check job role "other" text field
+  checkOther();
+});
+
+
+// set up functions to run validation
+
+// name
+function checkName() {
+  if ($('#name').val().length > 0) {
+    $('#name').prev().text('Name:');
+    $('#name').prev().css({
+      'color': '#000'
+    });
+    $('#name').css({
+      'background': '#c1deeb'
+    });
+  } else {
+    $('#name').prev().text('Name: Please enter your name!');
+    $('#name').prev().css({
+      'color': '#b73333'
+    });
+    $('#name').css({
+      'background': '#f9aeae'
+    });
+  }
+};
+
+// email
+function checkEmail() {
+  var $regEmail = $('#mail').val();
+  if ($regEmail.length > 0 || $regEmail.indexOf('@') >= 0) {
+    $('#mail').prev().text('Email:');
+    $('#mail').prev().css({
+      'color': '#000'
+    });
+    $('#mail').css({
+      'background': '#c1deeb'
+    });
+  } else {
+    $('#mail').prev().text('Email: Please enter valid email address!');
+    $('#mail').prev().css({
+      'color': '#b73333'
+    });
+    $('#mail').css({
+      'background': '#f9aeae'
+    });
+  }
+};
+// other text
+function checkOther() {
+  
+};
+
+
+
+
 
 //******************************************************************************
 // Clear any syntax errors
