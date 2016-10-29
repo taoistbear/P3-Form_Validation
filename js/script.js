@@ -1,6 +1,6 @@
 // 11 STEPS FOR PROJECT COPLETION
 
-// Create and lin a JS file to index.html - *** DONE
+// Create and link a JS file to index.html - *** DONE
 
 // Set focus on the first text field - *** DONE
 $(document).ready(function() {
@@ -92,8 +92,37 @@ var checkActivities = function() {
 };
 $('.activities input:checkbox').on('click', checkActivities);
 
+
+
 // Dynamic pay info selection
-$('#credit-card').hide();
+
+// set up variables to hold a quick reference and to hide dynamic options
+var $creditCard = $('#credit-card');
+var $payPal = $('#credit-card').next();
+var $bitcoin = $payPal.next();
+$creditCard.hide();
+$payPal.hide();
+$bitcoin.hide();
+// set up event listenr and function to control payment info
+$('#payment').change(function() {
+  if ($('#payment option:selected').val() == 'credit card') {
+    $creditCard.show();
+    $payPal.hide();
+    $bitcoin.hide();
+  } else if ($('#payment option:selected').val() == 'paypal') {
+    $creditCard.hide();
+    $payPal.show();
+    $bitcoin.hide();
+  } else if ($('#payment option:selected').val() == 'bitcoin') {
+    $creditCard.hide();
+    $payPal.hide();
+    $bitcoin.show();
+  } else {
+    $creditCard.hide();
+    $payPal.hide();
+    $bitcoin.hide();
+  }
+});
 
 
 // Display error messages for incomplete data
