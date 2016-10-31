@@ -1,5 +1,5 @@
 //******************************************************************************
-// 11 STEPS FOR PROJECT COPLETION
+// 11 STEPS FOR PROJECT COPLETION - *** DONE
 //******************************************************************************
 
 //******************************************************************************
@@ -105,7 +105,7 @@ $('.activities input:checkbox').on('click', checkActivities);
 
 
 //******************************************************************************
-// DYMANIC PAY INFO
+// DYMANIC PAY INFO - *** DONE
 //******************************************************************************
 
 // set up variables to hold a quick reference and to hide dynamic options
@@ -138,9 +138,8 @@ $('#payment').change(function() {
 
 
 //******************************************************************************
-// Display error messages for incomplete data
+// Display error messages for incomplete data - *** DONE
 //******************************************************************************
-console.log($('#name').text());
 
 // event listener for submit and validation
 $('button').click(function(event) {
@@ -158,8 +157,16 @@ $('button').click(function(event) {
   checkActEnroll();
   // check for a payment method selection
   checkPayMethod();
+  // check for credit card validation
+  if ($('#payment option:selected').val() === 'credit card') {
+    // check for valid card number
+    checkCard();
+    //check for valid zip code
+    checkZip();
+    // check for valid cvv code
+    checkCvv();
+  }
 });
-
 
 // *** set up functins to run validation
 
@@ -169,7 +176,7 @@ var cTeal = '#c1deeb';
 var cRed = '#b73333';
 var cPink = '#f9aeae';
 
-// set up standard error clear function
+// *** set up standard error clear function
 function errorFunc(mainId, titleMsg, cTxt, secondId, cBckgd) {
   $(mainId).prev().text(titleMsg);
   $(mainId).prev().css({
@@ -179,6 +186,8 @@ function errorFunc(mainId, titleMsg, cTxt, secondId, cBckgd) {
     'background': cBckgd
   });
 }
+
+//*** validation functions
 
 // name
 function checkName() {
@@ -248,10 +257,8 @@ function checkPayMethod() {
   }
 }
 
-
-
 //******************************************************************************
-// Clear any syntax errors
+// Clear any syntax errors - *** DONE
 //******************************************************************************
 
 //******************************************************************************
@@ -264,5 +271,29 @@ $('select').css({
 });
 
 //******************************************************************************
-// Add Credit Card Valition
+// Add Credit Card Valition - *** DONE
 //******************************************************************************
+
+// card validation
+function checkCard() {
+  if ($('#cc-num').val().length !== 16 || isNaN($('#cc-num').val())) {
+    errorFunc('#cc-num', 'Please enter valid card number no dashes!', cRed, '#cc-num', cPink);
+  } else {
+    errorFunc('#cc-num', 'Card Number:', cBlack, '#cc-num', cTeal);
+  }
+}
+// zip validation
+function checkZip() {
+  if ($('#zip').val().length !== 5 || isNaN($('#zip').val())) {
+    errorFunc('#zip', 'Please enter valid zip code!', cRed, '#zip', cPink);
+  } else {
+    errorFunc('#zip', 'Zip Code:', cBlack, '#zip', cTeal);
+  }
+}
+function checkCvv() {
+  if ($('#cvv').val().length !== 3 || isNaN($('#cvv').val())) {
+    errorFunc('#cvv', 'Please enter valid CVV code!', cRed, '#cvv', cPink);
+  } else {
+    errorFunc('#cvv', 'CVV:', cBlack, '#cvv', cTeal);
+  }
+}
