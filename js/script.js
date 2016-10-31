@@ -152,59 +152,101 @@ $('button').click(function(event) {
   checkEmail();
   // check job role "other" text field
   checkOther();
+  // check t-shirt info
+  checkShirt();
+  // check enrollment in at least 1 conference
+  checkActEnroll();
+  // check for a payment method selection
+  checkPayMethod();
 });
 
 
-// set up functions to run validation
+// *** set up functins to run validation
+
+// set up variables to hold the color changes
+var cBlack = '#000';
+var cTeal = '#c1deeb';
+var cRed = '#b73333';
+var cPink = '#f9aeae';
+
+// set up standard error clear function
+function errorFunc(mainId, titleMsg, cTxt, secondId, cBckgd) {
+  $(mainId).prev().text(titleMsg);
+  $(mainId).prev().css({
+    'color': cTxt
+  });
+  $(secondId).css({
+    'background': cBckgd
+  });
+}
 
 // name
 function checkName() {
   if ($('#name').val().length > 0) {
-    $('#name').prev().text('Name:');
-    $('#name').prev().css({
-      'color': '#000'
-    });
-    $('#name').css({
-      'background': '#c1deeb'
-    });
+    errorFunc('#name', 'Name:', cBlack, '#name', cTeal);
   } else {
-    $('#name').prev().text('Name: Please enter your name!');
-    $('#name').prev().css({
-      'color': '#b73333'
-    });
-    $('#name').css({
-      'background': '#f9aeae'
-    });
+    errorFunc('#name', 'Please enter your name!', cRed, '#name', cPink);
   }
 };
 
 // email
 function checkEmail() {
   var $regEmail = $('#mail').val();
-  if ($regEmail.length > 0 || $regEmail.indexOf('@') >= 0) {
-    $('#mail').prev().text('Email:');
-    $('#mail').prev().css({
-      'color': '#000'
-    });
-    $('#mail').css({
-      'background': '#c1deeb'
-    });
+  if ($regEmail.length > 0 && $regEmail.indexOf('@') >= 0) {
+    errorFunc('#mail', 'Email:', cBlack, '#mail', cTeal);
   } else {
-    $('#mail').prev().text('Email: Please enter valid email address!');
-    $('#mail').prev().css({
-      'color': '#b73333'
-    });
-    $('#mail').css({
-      'background': '#f9aeae'
-    });
+    errorFunc('#mail', 'Please enter valid email address!', cRed, '#mail', cPink);
   }
 };
 // other text
 function checkOther() {
-  
+  var $jobValue = $('#title option:selected').val();
+  if ($jobValue === 'other') {
+    if ($('#other-title').val().length > 0) {
+      errorFunc('#title', 'Job Role', cBlack, '#other-title', cTeal);
+    } else {
+      errorFunc('#title', 'Please enter your job title!', cRed, '#other-title', cPink);
+    }
+  } else {
+    errorFunc('#title', 'Job Role', cBlack, '#other-title', cTeal);
+  }
 };
-
-
+// check shirt
+function checkShirt() {
+  if ($('#design option:selected').val() === 'js puns' || $('#design option:selected').val() === 'heart js') {
+    errorFunc('#design', 'Design:', cBlack, '#design', cTeal);
+  } else {
+    errorFunc('#design', 'Please choose a T-Shirt design!', cRed, '#design', cPink);
+  }
+}
+// checck activities
+function checkActEnroll() {
+  if ($('.activities input:checked').length > 0) {
+    $('.activities legend').text('Register for Activities');
+    $('.activities legend').css({
+      'color': '#184f68'
+    });
+    $('.activities label').css({
+      'background': '#85b5ca'
+    });
+  } else {
+    $('.activities legend').text('You must at least sing up for at least 1 conference or workshop!');
+    $('.activities legend').css({
+      'color': cRed
+    });
+    $('.activities label').css({
+      'background': cPink
+    });
+  }
+}
+// check pay method
+function checkPayMethod() {
+  if ($('#payment option:selected').val() !== 'select_method') {
+    errorFunc('#payment', 'I\'m going to pay with:', cBlack, '#payment', cTeal);
+  } else {
+    errorFunc('#payment', 'Please select a payment method!', cRed, '#payment', cPink);
+  }
+}
 
 
 
